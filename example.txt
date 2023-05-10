@@ -1,0 +1,16 @@
+Example Input/Output
+
+Inside steam_urls.txt:
+
+https://store.steampowered.com/app/2221490
+
+Output to steam_games.txt
+
+Title: Tom Clancy’s The Division® 2
+Developer: Ubisoft
+Publisher: Ubisoft
+Tags: ['Action', 'Adventure', 'Multiplayer', 'Third-Person Shooter', 'Looter Shooter', 'Shooter', 'Online Co-Op', 'Singleplayer', 'Open World', 'RPG', 'Post-apocalyptic', 'Co-op', 'Massively Multiplayer', 'Loot', 'Survival', 'Character Customization', 'Military']
+User Review Score: Mixed
+Price: $29.99
+URL: https://store.steampowered.com/app/2221490
+--
