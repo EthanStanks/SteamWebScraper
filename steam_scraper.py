@@ -1,5 +1,6 @@
 import concurrent.futures
 import urllib.request
+import csv
 from bs4 import BeautifulSoup
 
 def scrape(url):
@@ -90,12 +91,16 @@ def scrape(url):
     return (title, developer, publisher, tags, user_review, price, url)
 
 # Open the file containing the list of URLs to scrape
-with open('steam_urls.txt', encoding='utf-8') as f, open('steam_games.txt', 'w', encoding='utf-8') as outfile:
+with open('steam_urls.txt', encoding='utf-8') as f, open('steam_games.csv', 'w', encoding='utf-8') as outfile:
     # Read the URLs from the file and store them in a list
     urls = [line.strip() for line in f]
     
     # Get the total number of URLs
     num_urls = len(urls)
+
+    # Initialize the header for the CSV file
+    outfileWriter = csv.writer(outfile)
+    outfileWriter.writerow(['title','developer','publisher','tags', 'user_review', 'price', 'url'])
     
     # Use a ThreadPoolExecutor to concurrently scrape the URLs
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
@@ -111,16 +116,18 @@ with open('steam_urls.txt', encoding='utf-8') as f, open('steam_games.txt', 'w',
             if result:
                 # Unpack the result tuple
                 title, developer, publisher, tags, user_review, price, url = result
+                row = [title, developer, publisher, tags, user_review, price, url]
+                outfileWriter.writerow(row)
                 
                 # Write the scraped information to the output file
-                outfile.write(f"Title: {title}\n")
-                outfile.write(f"Developer: {developer}\n")
-                outfile.write(f"Publisher: {publisher}\n")
-                outfile.write(f"Tags: {tags}\n")
-                outfile.write(f"User Review Score: {user_review}\n")
-                outfile.write(f"Price: {price}\n")
-                outfile.write(f"URL: {url}\n")
-                outfile.write("--\n")
+                # outfile.write(f"Title: {title}\n")
+                # outfile.write(f"Developer: {developer}\n")
+                # outfile.write(f"Publisher: {publisher}\n")
+                # outfile.write(f"Tags: {tags}\n")
+                # outfile.write(f"User Review Score: {user_review}\n")
+                # outfile.write(f"Price: {price}\n")
+                # outfile.write(f"URL: {url}\n")
+                # outfile.write("--\n")
             
             # Calculate the percentage of completion and print it
             percentage_complete = (i + 1) / num_urls * 100
