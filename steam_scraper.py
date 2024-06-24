@@ -91,7 +91,7 @@ def scrape(url):
     return (title, developer, publisher, tags, user_review, price, url)
 
 # Open the file containing the list of URLs to scrape
-with open('steam_urls.txt', encoding='utf-8') as f, open('steam_games.csv', 'w', encoding='utf-8') as outfile:
+with open('steam_urls.txt', encoding='utf-8') as f, open('steam_games.csv', 'w', newline='', encoding='utf-8') as outfile:
     # Read the URLs from the file and store them in a list
     urls = [line.strip() for line in f]
     
